@@ -7,6 +7,7 @@ requests = input().split()
 
 # define the size order, transform the sizes to int
 def size_to_int(size):
+    size = size.upper()
     if size == 'S':
         return 1
     elif size == 'M':
@@ -20,12 +21,15 @@ def size_to_int(size):
     if "L" in size:
         return 3 + x_count
 
-sizes = [size_to_int(size) for size in sizes].sort()
-requests = [size_to_int(request) for request in requests].sort()
+sizes = sorted([size_to_int(size) for size in sizes])
+requests = sorted([size_to_int(request) for request in requests])
 
 # check if all requests can be fulfilled
 fulfilled = True
 for request in requests:
+    if len(sizes) == 0:
+        fulfilled = False
+        break
     if sizes[0] >= request:
         sizes.pop(0)
     else:
